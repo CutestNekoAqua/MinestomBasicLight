@@ -1,5 +1,3 @@
-package me.hugo.kweebecparty.light;
-
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.DynamicChunk;
 import net.minestom.server.instance.Instance;
