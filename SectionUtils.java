@@ -1,5 +1,3 @@
-package me.hugo.kweebecparty.light;
-
 /*
  * Copyright Waterdev 2022, under the MIT License
  */
