@@ -34,7 +34,7 @@ public class LightEngine {
 
     public void recalculateChunk(Chunk chunk) {
         exposed = new boolean[16][16];
-        sections.forEach(e -> Arrays.fill(e, true));
+        exposed.forEach(e -> Arrays.fill(e, true));
         List<Section> sections = new ArrayList<>(chunk.getSections());
         Collections.reverse(sections);
         sections.forEach(this::recalculateSection);
