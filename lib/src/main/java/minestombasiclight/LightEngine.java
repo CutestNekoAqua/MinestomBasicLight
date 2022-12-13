@@ -28,12 +28,14 @@ public class LightEngine {
     public static final int ARRAY_SIZE = 16 * 16 * 16 / (8/4); // blocks / bytes per block
 
     byte[] recalcArray;
+    boolean[][] exposed = new boolean[16][16];
     public void recalculateInstance(Instance instance) {
         List<Chunk> chunks = instance.getChunks().stream().toList();
         chunks.forEach((this::recalculateChunk));
     }
 
     public void recalculateChunk(Chunk chunk) {
+        exposed = new boolean[16][16];
         List<Section> sections = new ArrayList<>(chunk.getSections());
         Collections.reverse(sections);
         sections.forEach(this::recalculateSection);
@@ -53,12 +55,13 @@ public class LightEngine {
             }*/
     }
 
-    public void recalculateSection(Section section) {
+    private void recalculateSection(Section section) {
         recalcArray = new byte[ARRAY_SIZE];
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 for (int y = 15; y > -1; y--) {
-                    if(utils.lightCanPassThrough(Block.fromStateId((short) section.blockPalette().get(x, y, z)))) {
+                    if(!utils.lightCanPassThrough(Block.fromStateId((short) section.blockPalette().get(x, y, z)))) exposed[x][z] = false;
+                    if(exposed[x][z]) {
                         set(utils.getCoordIndex(x,y,z), fullbright);
                     } else {
                         set(utils.getCoordIndex(x,y,z), dark);
