@@ -8,9 +8,7 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.Section;
 import net.minestom.server.instance.block.Block;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /*
  * Copyright Waterdev 2022, under the MIT License
@@ -36,6 +34,7 @@ public class LightEngine {
 
     public void recalculateChunk(Chunk chunk) {
         exposed = new boolean[16][16];
+        sections.forEach(e -> Arrays.fill(e, true));
         List<Section> sections = new ArrayList<>(chunk.getSections());
         Collections.reverse(sections);
         sections.forEach(this::recalculateSection);
